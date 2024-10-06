@@ -16,10 +16,8 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-
       <div className="flex flex-col flex-grow w-full md:w-[calc(100%-16rem)]">
         <Header onOpenSidebar={() => setSidebarOpen(true)} />
-
         <ScrollArea.Root className="flex-grow">
           <ScrollArea.Viewport className="w-full h-full">
             <main className="p-6">{children}</main>
@@ -28,8 +26,7 @@ export default function DashboardLayout({
             <ScrollArea.Thumb />
           </ScrollArea.Scrollbar>
         </ScrollArea.Root>
-
-        <Footer />
+        <Footer/>
       </div>
     </div>
   );
