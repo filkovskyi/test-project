@@ -4,29 +4,32 @@ import { useState } from "react";
 import { Card } from "./card";
 
 interface CardData {
-  id: string;
-  status: string;
-  name: string;
-  subject: string;
-  time: string;
-  longSubject?: string;
-  buttons?: string[];
+  cards: Array<{
+    id: string;
+    status: string;
+    name: string;
+    subject: string;
+    time: string;
+    longSubject?: string;
+    buttons?: string[];
+  }>;
+  onDeleteCard: (id: string) => void;
 }
 
 const ITEMS_PER_PAGE = 5;
 
-export function CardList({ cards }: { cards: CardData[] }) {
+export function CardList({ cards, onDeleteCard }: CardData) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortField, setSortField] = useState<keyof CardData>("time");
+  const [sortField, setSortField] = useState<keyof CardData["cards"][0]>("time");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
   const sortedCards = [...cards].sort((a, b) => {
     const aValue = a[sortField];
     const bValue = b[sortField];
-    
+
     if (aValue === undefined || bValue === undefined) {
       return 0;
     }
-    
+
     if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
     if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
     return 0;
@@ -37,8 +40,7 @@ export function CardList({ cards }: { cards: CardData[] }) {
   const currentCards = sortedCards.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
-
-  const handleSort = (field: keyof CardData) => {
+  const handleSort = (field: keyof CardData["cards"][0]) => {
     if (field === sortField) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
@@ -55,7 +57,7 @@ export function CardList({ cards }: { cards: CardData[] }) {
             onClick={() => handleSort("status")}
             className="mr-2 px-2 py-1 bg-gray-200 rounded"
           >
-            Sort by Status
+            Sort by User
           </button>
           <button
             onClick={() => handleSort("time")}
@@ -69,7 +71,11 @@ export function CardList({ cards }: { cards: CardData[] }) {
         </div>
       </div>
       {currentCards.map((card) => (
-        <Card key={card.id} {...card} />
+        <Card
+          key={card.id}
+          {...card}
+          onDelete={onDeleteCard}
+        />
       ))}
       <div className="mt-4 flex justify-center">
         <button

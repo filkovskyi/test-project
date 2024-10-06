@@ -1,68 +1,77 @@
 "use client";
 
 import { useState } from "react";
+import { Badge } from "./badge";
+import { Typography } from "./typography";
+import { IconButton } from "@/app/components/ui/button";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 
 interface CardProps {
+  id: string;
   status: string;
   name: string;
   subject: string;
   time: string;
   longSubject?: string;
-  buttons?: string[];
+  badges?: string[];
+  onDelete: (id: string) => void;
+  onAction?: () => void;
 }
 
 export function Card({
+  id,
   status,
   name,
   subject,
   time,
   longSubject,
-  buttons,
+  onDelete,
 }: CardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleExpand = (e: React.MouseEvent) => {
-    if (isExpanded && e.target === e.currentTarget) {
-      setIsExpanded(false);
-    } else if (!isExpanded) {
-      setIsExpanded(true);
-    }
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
   };
 
-  const statusColor = status === "Status" ? "bg-emerald-500" : "bg-violet-400";
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(id);
+  };
 
   return (
     <div
-      className={`bg-gray-200 rounded-lg p-4 mb-4 cursor-pointer transition-all duration-300 ease-in-out ${
-        isExpanded ? "h-auto" : "h-20"
-      }`}
+      className="bg-gray-200 rounded-lg p-4 mb-4 transition-all duration-300 ease-in-out cursor-pointer"
       onClick={toggleExpand}
     >
-      <div className="flex justify-between items-center">
-        <span className={`${statusColor} text-white px-2 py-1 rounded`}>
-          {status}
-        </span>
-        <span className="text-violet-400">{time}</span>
-      </div>
-      <div className="mt-2">
-        <h3 className="font-semibold">{name}</h3>
-        {!isExpanded && <p className="text-gray-600 truncate">{subject}</p>}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-4 flex-grow">
+          <Badge variant="success">{status}</Badge>
+          <div className="flex-grow">
+            <Typography variant="h4">{name}</Typography>
+            <Typography variant="body2">{subject}</Typography>
+          </div>
+          <Badge variant="primary">{time}</Badge>
+        </div>
+        <div className="flex items-center space-x-4">
+          {isExpanded ? (
+            <ChevronUp size={20} className="text-gray-600" />
+          ) : (
+            <ChevronDown size={20} className="text-gray-600" />
+          )}
+          <IconButton
+            onClick={handleDelete}
+            variant="link"
+            icon={X}
+            className="text-text hover:text-text/80"
+            aria-label="delete card"
+          />
+        </div>
       </div>
       {isExpanded && (
         <div className="mt-4">
-          <p className="text-gray-600">{longSubject || subject}</p>
-          {buttons && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {buttons.map((button, index) => (
-                <button
-                  key={index}
-                  className="bg-cyan-400 text-white px-3 py-1 rounded"
-                >
-                  {button}
-                </button>
-              ))}
-            </div>
-          )}
+          <Typography variant="body1" className="text-gray-600">
+            {longSubject || subject}
+          </Typography>
         </div>
       )}
     </div>

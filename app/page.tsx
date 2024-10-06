@@ -29,6 +29,10 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  const handleDeleteCard = (id: string) => {
+    setPosts(posts.filter(posts => posts.id.toString() !== id));
+  };
+
   const cards = posts.map((post) => ({
     id: post.id.toString(),
     status: `User ${post.userId}`,
@@ -38,5 +42,5 @@ export default function Home() {
     longSubject: post.body,
   }));
 
-  return <CardList cards={cards} />;
+  return <CardList cards={cards}  onDeleteCard={handleDeleteCard} />;
 }

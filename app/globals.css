@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
   --background-light: #ffffff;
   --text-light: #000000;
   --background-dark: #1a1919;
   --text-dark: #ffffff;
-}
+} */
 
 @media (prefers-color-scheme: dark) {
   :root {
