@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
-import { Sidebar } from "./sidebar";
-import { Header } from "./header";
-import { Footer } from "./footer";
+import { Sidebar } from "./layout/sidebar";
+import { Header } from "./layout/header";
+import { Footer } from "./layout/footer";
 
 export default function DashboardLayout({
   children,
