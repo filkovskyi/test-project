@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
-}
+  --background-light: #ffffff;
+  --text-light: #000000;
+  --background-dark: #1a1919;
+  --text-dark: #ffffff;
+} */
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -24,4 +28,14 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.theme-light {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+.theme-dark {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
 }
