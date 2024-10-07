@@ -38,7 +38,7 @@ export default function Home() {
     status: `User ${post.userId}`,
     name: `Post ${post.id}`,
     subject: post.title,
-    time: new Date().toLocaleTimeString(),
+    time: new Date(Date.now() + post.id * 60000).toLocaleTimeString(),
     longSubject: post.body,
   }));
 

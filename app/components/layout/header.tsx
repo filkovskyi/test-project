@@ -1,5 +1,5 @@
 import { Menu, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/app/hooks/useTheme";
+import { useTheme } from "@/app/context/ThemeContext";
 import { Button, IconButton } from "@/app/components/ui/button";
 import { Logo } from "@/app/components/ui/icons/logo";
 

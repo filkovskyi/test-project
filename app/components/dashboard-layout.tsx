@@ -14,7 +14,7 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex min-h-screen h-full bg-gray-100 dark:bg-gray-900">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex flex-col flex-grow w-full md:w-[calc(100%-16rem)]">
         <Header onOpenSidebar={() => setSidebarOpen(true)} />
