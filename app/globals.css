@@ -16,14 +16,12 @@
   --gray-300: #e2e8f0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1919;
-    --foreground: #ededed;
-    --gray-100: #2d3748;
-    --gray-200: #4a5568;
-    --gray-300: #718096;
-  }
+.dark {
+  --background: #1a1919;
+  --foreground: #ededed;
+  --gray-100: #2d3748;
+  --gray-200: #4a5568;
+  --gray-300: #718096;
 }
 
 body {

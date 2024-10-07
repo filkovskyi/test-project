@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { Button, IconButton } from "@/app/components/ui/button";
 import Link from "next/link";
@@ -16,13 +16,29 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node) && isOpen) {
+        onClose();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
   return (
     <aside
+      ref={sidebarRef}
       className={`
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        fixed inset-y-0 left-0 z-50 w-64 transition-all duration-300 ease-in-out bg-gray-300 dark:bg-black
-        md:translate-x-0 md:static md:inset-auto md:flex md:w-64 md:flex-col
-      `}
+      ${isOpen ? "translate-x-0" : "-translate-x-full"}
+      fixed inset-y-0 left-0 z-50 w-64 transition-all duration-300 ease-in-out bg-gray-300 dark:bg-gray-700
+      md:translate-x-0 md:static md:inset-auto md:flex md:w-64 md:flex-col
+    `}
     >
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 md:hidden">
         <IconButton

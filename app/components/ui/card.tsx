@@ -38,7 +38,7 @@ export function Card({
 
   return (
     <div
-      className="bg-gray-200 rounded-lg p-3 sm:p-4 mb-4 transition-all duration-300 ease-in-out cursor-pointer hover:bg-gray-300"
+      className="bg-gray-200 dark:bg-gray-600 rounded-lg p-3 sm:p-4 mb-4 transition-all duration-300 ease-in-out cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500"
       onClick={toggleExpand}
     >
       <div className="flex flex-row justify-between">
@@ -61,9 +61,9 @@ export function Card({
           </Badge>
           <div className="flex items-center space-x-1 sm:space-x-2">
             {isExpanded ? (
-              <ChevronUp size={16} className="text-gray-600" />
+              <ChevronUp size={16} className="text-gray-600 dark:text-gray-400" />
             ) : (
-              <ChevronDown size={16} className="text-gray-600" />
+              <ChevronDown size={16} className="text-gray-600 dark:text-gray-400 " />
             )}
             <IconButton
               onClick={handleDelete}
@@ -80,7 +80,7 @@ export function Card({
         <div className="mt-3 sm:mt-4 pl-4 sm:pl-16">
           <Typography
             variant="body1"
-            className="text-gray-600 text-sm sm:text-base"
+            className="text-gray-600 text-sm sm:text-base dark:text-gray-400"
           >
             {longSubject || subject}
           </Typography>
