@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from '@/app/components/ui/button';
 import { useState } from "react";
 import { Card } from "./card";
 
@@ -16,7 +17,7 @@ interface CardData {
   onDeleteCard: (id: string) => void;
 }
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
 
 export function CardList({ cards, onDeleteCard }: CardData) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,23 +51,25 @@ export function CardList({ cards, onDeleteCard }: CardData) {
   };
 
   return (
-    <div>
-      <div className="mb-4 flex justify-between items-center">
-        <div>
-          <button
+    <>
+      <div className="mb-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+          <Button
             onClick={() => handleSort("status")}
-            className="mr-2 px-2 py-1 bg-gray-200 rounded"
+            variant="primary"
+            size="sm"
           >
             Sort by User
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => handleSort("time")}
-            className="px-2 py-1 bg-gray-200 rounded"
+            variant="primary"
+            size="sm"
           >
             Sort by Time
-          </button>
+          </Button>
         </div>
-        <div>
+        <div className="text-sm">
           Page {currentPage} of {totalPages}
         </div>
       </div>
@@ -77,24 +80,26 @@ export function CardList({ cards, onDeleteCard }: CardData) {
           onDelete={onDeleteCard}
         />
       ))}
-      <div className="mt-4 flex justify-center">
-        <button
+      <div className="mt-4 flex justify-center gap-2">
+        <Button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="mx-1 px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          variant="primary"
+          size="sm"
         >
           Previous
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
-          className="mx-1 px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+          variant="primary"
+          size="sm"
         >
           Next
-        </button>
+        </Button>
       </div>
-    </div>
+    </>
   );
 }

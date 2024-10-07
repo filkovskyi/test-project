@@ -1,6 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
-import { Button } from "@/app/components/ui/button";
+import { Button, IconButton } from "@/app/components/ui/button";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -20,20 +20,20 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     <aside
       className={`
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out
-        border-r border-gray-200 dark:border-gray-700
+        fixed inset-y-0 left-0 z-50 w-64 transition-all duration-300 ease-in-out bg-gray-300 dark:bg-black
         md:translate-x-0 md:static md:inset-auto md:flex md:w-64 md:flex-col
       `}
     >
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 md:hidden">
-        <button
+        <IconButton
           onClick={onClose}
-          className="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-        >
-          <X size={24} />
-        </button>
+          variant="link"
+          icon={X}
+          className="text-text hover:text-text/80 md:hidden"
+          aria-label="close sidebar"
+        />
       </div>
-      <div className="flex-grow p-4">
+      <div className="flex-grow p-4 overflow-y-auto">
         <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
           <nav className="space-y-4">
             {[
@@ -55,12 +55,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </nav>
         </div>
       </div>
-      <Button
-        variant="link"
-        className="m-4 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
-      >
-        Log out
-      </Button>
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        <Button variant="primary" className="w-full">
+          Log out
+        </Button>
+      </div>
     </aside>
   );
 }
